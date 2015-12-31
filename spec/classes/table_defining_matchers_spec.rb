@@ -30,7 +30,6 @@ module CassandraModel
           model_data do |inquirer, data_set|
             inquirer.knows_about(:key)
             inquirer.knows_about(:other_key)
-            data_set.knows_about(:value)
           end
         end
 
@@ -50,7 +49,6 @@ module CassandraModel
           model_data do |inquirer, data_set|
             inquirer.knows_about(:key)
             inquirer.knows_about(:key, :other_key)
-            data_set.knows_about(:value)
           end
         end
 
