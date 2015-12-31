@@ -6,6 +6,7 @@ module CassandraModel
       end
 
       def matches?(object)
+        @object = object
         object.superclass == Record &&
             keys.all? { |column| object.partition_key.include?(column) } &&
             (
@@ -19,11 +20,11 @@ module CassandraModel
       end
 
       def failure_message
-        'nope'
+        "Expected #{@object} to be inquirable by #{keys * ', '}"
       end
 
       def failure_message_when_negated
-        'other nope'
+        "Expected #{@object} not to be inquirable by #{keys * ', '}"
       end
     end
 
