@@ -16,5 +16,7 @@
 
 require 'rspec'
 require 'rspec/its'
-require 'cassandra_model'
 require 'cassandra_mocks'
+require 'cassandra_model'
+
+require 'cmodel_matchers/table_defining_matchers'
