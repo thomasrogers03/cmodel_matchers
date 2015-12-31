@@ -28,9 +28,32 @@ module CassandraModel
       end
     end
 
+    class UniquenessMatcher < Struct.new(:keys)
+      def description
+        'nope'
+      end
+
+      def matches?(object)
+        object.superclass == Record &&
+            (object.partition_key == keys || object.clustering_columns == keys)
+      end
+
+      def failure_message
+        "Expected #{@object} to be have clustering columns #{keys * ', '}"
+      end
+
+      def failure_message_when_negated
+        "Expected #{@object} not to have clustering columns #{keys * ', '}"
+      end
+    end
+
     module TableDefiningMatchers
       def be_inquirable_by(*keys)
         TruthTableMatcher.new(keys)
+      end
+
+      def be_unique_by(*keys)
+        UniquenessMatcher.new(keys)
       end
     end
   end

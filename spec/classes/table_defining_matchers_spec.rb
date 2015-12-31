@@ -11,6 +11,7 @@ module CassandraModel
 
           model_data do |inquirer, data_set|
             inquirer.knows_about(:key)
+            data_set.is_defined_by(:location)
             data_set.knows_about(:value)
           end
         end
@@ -19,6 +20,8 @@ module CassandraModel
 
         it { is_expected.to be_inquirable_by(:key) }
         it { is_expected.not_to be_inquirable_by(:value) }
+        it { is_expected.to be_unique_by(:location) }
+        it { is_expected.not_to be_unique_by(:value) }
       end
 
       describe 'a table defining composite queries' do
